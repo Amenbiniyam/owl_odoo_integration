@@ -15,6 +15,7 @@ export class OwlTodoList extends Component {
             taskList:[],
             isEdit: false,
             activeId: false,
+            isModalOpen: false,
         })
         this.orm = useService("orm")
         this.model = "owl.todo.list"
@@ -34,12 +35,17 @@ export class OwlTodoList extends Component {
         this.resetForm()
         this.state.activeId = false
         this.state.isEdit = false
+         this.state.isModalOpen = true;  // Open the modal
+
     }
 
     editTask(task){
         this.state.activeId = task.id
         this.state.isEdit = true
+        this.state.isModalOpen = true;  // Open the modal
         this.state.task = {...task}
+
+
     }
 
     async saveTask(){
@@ -55,6 +61,8 @@ export class OwlTodoList extends Component {
 
         // when everytime the save task the page to refresh
         await this.getAllTasks()
+        // Close the modal
+        this.state.isModalOpen = false;
     }
 
     resetForm(){
